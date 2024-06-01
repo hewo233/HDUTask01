@@ -35,7 +35,7 @@ void printMenu()
                 addGoods(goods, &goodsNum);
                 break;
             case 3:
-                serachGoods(goods, goodsNum, 1);
+                searchGoods(goods, goodsNum, 1);
                 break;
             case 4:
                 deleteGoods(goods, &goodsNum);
@@ -152,7 +152,7 @@ int searchGoods(tGoods *goods, int goodsNum, int printFlag)
 
 void deleteGoods(tGoods *goods, int *goodsNum)
 {
-    int id = serachGoods(goods, *goodsNum, 0);
+    int id = searchGoods(goods, *goodsNum, 0);
     if(id == -1)
     {
         printf("商品不存在\n");
@@ -163,7 +163,7 @@ void deleteGoods(tGoods *goods, int *goodsNum)
 
 void modifyGoods(tGoods *goods, int goodsNum)
 {
-    int id = serachGoods(goods, goodsNum, 0);
+    int id = searchGoods(goods, goodsNum, 0);
     if(id == -1)
     {
         printf("商品不存在\n");

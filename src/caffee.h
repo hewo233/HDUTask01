@@ -24,7 +24,7 @@ typedef struct {
 void printGoods(tGoods *goods,int goodsNum);
 void addGoods(tGoods *goods,int *goodsNum);
 
-int serachGoods(tGoods *goods,int goodsNum,int printFlag);
+int searchGoods(tGoods *goods,int goodsNum,int printFlag);
 void deleteGoods(tGoods *goods,int *goodsNum);
 void modifyGoods(tGoods *goods,int goodsNum);
 
