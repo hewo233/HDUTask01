@@ -181,6 +181,46 @@ void modifyGoods(tGoods *goods, int goodsNum)
     scanf("%d",&goods[id].quantity);
 }
 
+int searchOrder(tOrder *order, int orderNum, int printFlag)
+{
+    return -1;
+}
+
+void sortOrder(tOrder *order, int orderNum)
+{
+    return;
+}
+
+void printOrder(tOrder *order, int orderNum)
+{
+    return;
+}
+
+void addOrder(tOrder *order, int *orderNum, tGoods *goods, int goodsNum)
+{
+    return;
+}
+
+void deleteOrder(tOrder *order, int *orderNum)
+{
+    return;
+}
+
+void finishOrder(tOrder *order, int orderNum, tGoods *goods, int goodsNum)
+{
+    return;
+}
+
+void save()
+{
+    return;
+}
+
+int getSales(tOrder *order, int orderNum, tGoods *goods, int goodsNum, time_t start, time_t end)
+{
+    return 0;
+}
+
 int main()
 {
     init();
