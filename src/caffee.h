@@ -10,6 +10,7 @@ typedef struct {
     char description[100];
     int type;
     int quantity;
+    int available;
 } tGoods;
 
 typedef struct {
@@ -17,7 +18,7 @@ typedef struct {
     char customerName[50];
     time_t ordertime;
     int status;
-    int goodsNum[100];
+    int goodsNum[100]; // goodsNum[goodsID] is num
 } tOrder;
 
 void printGoods(tGoods *goods,int goodsNum);
