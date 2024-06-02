@@ -18,7 +18,7 @@ typedef struct {
     int ID;
     char customerName[50];
     time_t ordertime;
-    int status;//未完成为1，已完成为2，已取消为3
+    int status;//未完成为1，已完成为2，已删除为3
     int goodsNum[100]; // goodsNum[goodsID] is num
 } tOrder;
 
@@ -33,15 +33,13 @@ int searchOrder(tOrder *order,int orderNum,int printFlag);
 void sortOrder(tOrder *order,int orderNum);
 
 void printOrder(tOrder *order,int orderNum);
-void addOrder(tOrder *orderm,int *orderNum,tGoods *goods,int goodsNum);
-void deleteOrder(tOrder *order,int *orderNum);
+void addOrder(tOrder *orderm,int *orderNum);
+void deleteOrder(tOrder *order);
 void finishOrder(tOrder *order,int orderNum,tGoods *goods,int goodsNum);
 
 void printMenu();
 
-void save();
-
-int getSales(tOrder *order,int orderNum,tGoods *goods,int goodsNum,time_t start,time_t end);
+int getSales(tOrder *order,int orderNum,tGoods *goods,int goodsNum);
 
 
 
