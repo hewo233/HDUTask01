@@ -329,7 +329,7 @@ void deleteOrder(tOrder *order, int *orderNum)
     int num=0;
     scanf("%d",&num);
 
-    if (order[num].status==1||order[num].status==2)
+    if (order[num].status==1)
     {
         order[num].status=3;
         printf("操作成功\n");
@@ -406,7 +406,8 @@ int getSales(tOrder *order, int orderNum, tGoods *goods, int goodsNum, time_t st
     printf("Converted time_t: %ld\n", time2);
 
     int sales=0;
-    int salesList[100]={"0"};
+    int salesList[100];
+    memset(salesList,0,sizeof(salesList));
 
     for(int i=0;i<orderNum;i++)
     {
