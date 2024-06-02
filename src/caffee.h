@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdio.h>
 #include <time.h>
 
 const char classify[5][10] = {"coffee", "tea", "juice", "milk", "other"};
@@ -17,7 +18,7 @@ typedef struct {
     int ID;
     char customerName[50];
     time_t ordertime;
-    int status;
+    int status;//未完成为1，已完成为2，已取消为3
     int goodsNum[100]; // goodsNum[goodsID] is num
 } tOrder;
 
