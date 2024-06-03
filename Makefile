@@ -6,21 +6,16 @@ CFLAGS = -Wall -g
 SRC_DIR = src
 TARGET = cafe
 SRCS = $(SRC_DIR)/cafe.c
-OBJS = $(SRCS:.c=.o)
 
 # 默认目标
 all: $(TARGET)
 
-# 链接目标文件生成可执行文件
-$(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^
-
-# 编译源文件生成目标文件
-$(SRC_DIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) $(CFLAGS) -c -o $@ $<
+# 链接并编译源文件生成可执行文件
+$(TARGET):
+	$(CC) $(CFLAGS) -o $(TARGET) $(SRCS)
 
 # 清理生成的文件
 clean:
-	rm -f $(SRC_DIR)/*.o $(TARGET)
+	rm -f $(TARGET)
 
 .PHONY: all clean
