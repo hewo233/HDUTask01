@@ -2,7 +2,7 @@
 #include <string.h>
 #include <time.h>
 #include <stdlib.h>
-#include "caffee.h"
+#include "cafe.h"
 
 tGoods *goods;
 tOrder *order;
@@ -54,7 +54,7 @@ void printMenu()
                 addOrder(order, &orderNum);
                 break;
             case 10:
-                cancelOrder(order);
+                cancelOrder(order, orderNum);
                 break;
             case 11:
                 finishOrder(order, orderNum, goods, goodsNum);
@@ -63,6 +63,7 @@ void printMenu()
                 getSales(order, orderNum, goods, goodsNum);
                 break;
             case 13:
+                exitProgram();
                 return;
             default:
                 printf("无效的选择，请重新输入。\n");
@@ -176,8 +177,7 @@ void modifyGoods(tGoods *goods, int goodsNum)
 
 int searchOrder(tOrder *order, int orderNum, int printFlag)
 {
-    void sortOrder(tOrder *order, int orderNum);
-
+    sortOrder(order, orderNum);
     printf("请选择搜索方式：1.订单号 2.顾客名字\n");
     int choice;
     scanf("%d", &choice);
@@ -286,7 +286,6 @@ void printOrder(tOrder *order, int orderNum)
 
 void addOrder(tOrder *order, int *orderNum)
 {
-    void sortOrder(tOrder *order, int orderNum);
 
     printf("该订单订单号为：%d\n",*orderNum);
     printf("请输入顾客名字：\n");
@@ -324,9 +323,9 @@ void addOrder(tOrder *order, int *orderNum)
     return;
 }
 
-void cancelOrder(tOrder *order)
+void cancelOrder(tOrder *order, int orderNum)
 {
-    void sortOrder(tOrder *order, int orderNum);
+    sortOrder(order, orderNum);
 
     printf("请输入订单号\n");
     int num=0;
@@ -352,7 +351,7 @@ void cancelOrder(tOrder *order)
 
 void finishOrder(tOrder *order, int orderNum, tGoods *goods, int goodsNum)
 {
-    void sortOrder(tOrder *order, int orderNum);
+    sortOrder(order, orderNum);
 
     printf("请输入订单号\n");
     int num=0;
@@ -386,7 +385,7 @@ void finishOrder(tOrder *order, int orderNum, tGoods *goods, int goodsNum)
 
 int getSales(tOrder *order, int orderNum, tGoods *goods, int goodsNum)
 {
-    void sortOrder(tOrder *order, int orderNum);
+    sortOrder(order, orderNum);
 
     int year1=0, year2=0;
     int month1=0, month2=0;
@@ -459,6 +458,13 @@ int getSales(tOrder *order, int orderNum, tGoods *goods, int goodsNum)
     printf("成功保存\n");
 
     return 0;
+}
+
+void exitProgram()
+{
+    free(goods);
+    free(order);
+    printf("成功退出\n");
 }
 
 int main()
