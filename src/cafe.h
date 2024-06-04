@@ -34,7 +34,6 @@ void sortOrder(tOrder *order,int orderNum);
 
 void printOrder(tOrder *order,int orderNum);
 void addOrder(tOrder *orderm,int *orderNum);
-void deleteOrder(tOrder *order);
 void finishOrder(tOrder *order,int orderNum,tGoods *goods,int goodsNum);
 void cancelOrder(tOrder *order,int orderNum);
 
