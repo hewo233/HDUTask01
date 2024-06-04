@@ -3,6 +3,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include "cafe.h"
+#include <signal.h>
 
 tGoods *goods;
 tOrder *order;
@@ -472,8 +473,16 @@ void exitProgram()
     printf("成功退出\n");
 }
 
+void SIGINT_handler(int sig)
+{
+    exitProgram();
+    exit(0);
+}
+
 int main()
 {
+
+    signal(SIGINT, SIGINT_handler);
     init();
     printMenu();
 }
