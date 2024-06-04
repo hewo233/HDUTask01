@@ -195,7 +195,7 @@ int searchOrder(tOrder *order, int orderNum, int printFlag)
                     struct tm *date = localtime(&order[i].ordertime);
                     char buffer[80];
                     strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M", date);
-                    printf("订单号：%d\n顾客名字：%s\n订单状态：%d\n订单时间：%s\n购买商品为：\n",order[i].ID,order[i].customerName,order[i].status,buffer);
+                    printf("订单号：%d\n顾客名字：%s\n订单状态：%d (未完成为1，已完成为2，已取消为3)\n订单时间：%s\n购买商品为：\n",order[i].ID,order[i].customerName,order[i].status,buffer);
                     for(int j=0;j<goodsNum;j++)
                     {
                         if(order[i].goodsNum[j] > 0)
@@ -250,7 +250,7 @@ void sortOrder(tOrder *order, int orderNum)
     {
         for (j = 0; j < orderNum - i - 1; j++) 
         {
-            if (order[j].ID > order[j + 1].ID) 
+            if (order[j].ordertime > order[j + 1].ordertime) 
             {
                 // 交换顺序
                 temp = order[j];
@@ -264,21 +264,22 @@ void sortOrder(tOrder *order, int orderNum)
 
 void printOrder(tOrder *order, int orderNum)
 {
-    void sortOrder(tOrder *order, int orderNum);
+    sortOrder(order, orderNum);
 
-    for(int i=0,j=0;i<orderNum;i++)
+    for(int i=0;i<orderNum;i++)
     {
         struct tm *date = localtime(&order[i].ordertime);
         char buffer[80];
         strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M", date);
         printf("订单号：%d\n顾客名字：%s\n订单状态：%d\n订单时间：%s\n购买商品为：\n",order[i].ID,order[i].customerName,order[i].status,buffer);
-        for(;j<goodsNum;j++)
+        for(int j=0;j<goodsNum;j++)
         {
             if(order[i].goodsNum[j] > 0)
             {
-                printf("商品编号：%d\t名字：%s\t数量:%d\n",i,goods[i].name,order[i].goodsNum[j]);
+                printf("商品编号：%d\t名字：%s\t数量:%d\n",j,goods[j].name,order[i].goodsNum[j]);
             }
-        }        
+        }
+        printf("\n");        
     }
     
     return;
@@ -389,21 +390,25 @@ int getSales(tOrder *order, int orderNum, tGoods *goods, int goodsNum)
 
     int year1=0, year2=0;
     int month1=0, month2=0;
-    int day1=0, day2=0;
-    printf("请输入起始时间（XXXX年X月X日）：\n");
-    scanf("%d %d %d",&year1,&month1,&day1);
-    printf("请输入结束时间（XXXX年X月X日）：\n");
-    scanf("%d %d %d",&year2,&month2,&day2);
+    int day1=0, day2=0,hour1=0,hour2=0,min1=0,min2=0;
+    printf("请输入起始时间(XXXX年X月X日X时X分):\n");
+    scanf("%d %d %d %d %d",&year1,&month1,&day1,&hour1,&min1);
+    printf("请输入结束时间(XXXX年X月X日X时X分):\n");
+    scanf("%d %d %d %d %d",&year2,&month2,&day2,&hour2,&min2);
 
     struct tm date1 = {0};
     date1.tm_year = year1 - 1900; // tm_year表示的是从1900年开始的年数
     date1.tm_mon = month1 - 1;    // tm_mon表示的是0-11的月份
     date1.tm_mday = day1;
+    date1.tm_hour = hour1;
+    date1.tm_min = min1;
     time_t time1 = mktime(&date1);
     struct tm date2 = {0};
     date2.tm_year = year2 - 1900; // tm_year表示的是从1900年开始的年数
     date2.tm_mon = month2 - 1;    // tm_mon表示的是0-11的月份
     date2.tm_mday = day2;
+    date2.tm_hour = hour2;
+    date2.tm_min = min2;
     time_t time2 = mktime(&date2);
 
     int sales=0;
@@ -422,12 +427,11 @@ int getSales(tOrder *order, int orderNum, tGoods *goods, int goodsNum)
                     salesList[j]=salesList[j]+order[i].goodsNum[j];
                 }
             }
-                return i;
         }
     }
 
     printf("总销售额为：%d元\n销售清单如下\n",sales);
-    for(int i=0;i<=goodsNum;i++)
+    for(int i=0;i<goodsNum;i++)
     {
         if(salesList[i]>0)
         {
@@ -435,14 +439,15 @@ int getSales(tOrder *order, int orderNum, tGoods *goods, int goodsNum)
         }
     }
 
-    FILE *file = fopen("output.txt", "w");
+
+    FILE *file = fopen("output.txt", "w+");
     if (file == NULL) 
     {
         printf("文件打开失败，未保存\n");
         return 1;
     }
 
-    fprintf(file, "%d年%d月%d日到%d年%d月%d日期间\n",year1,month1,day1,year2,month2,day2);
+    fprintf(file, "%d年%d月%d日%d时%d分到%d年%d月%d日%d时%d分期间\n",year1,month1,day1,hour1,min1,year2,month2,day2,hour2,min2);
     fprintf(file,"总销售额为：%d元\n销售清单如下\n",sales);
     int length = sizeof(salesList);
     for (int i = 0; i < length; i++) 
